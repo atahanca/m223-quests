@@ -17,7 +17,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-
+    
+    @SuppressWarnings("removal")
+    @Bean
+    SecurityFilterChain authenticatedAndFreePagesWithLogin (
+            HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests ()
+                .requestMatchers ("/ admin") .authenticated ()
+	        .anyRequest (). permitAll ()
+    	    .and () .formLogin ()
+	    .and (). build ();
+    }
     
     @Bean
     public PasswordEncoder passwordEncoder() {
